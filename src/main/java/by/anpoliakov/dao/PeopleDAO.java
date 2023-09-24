@@ -21,4 +21,11 @@ public class PeopleDAO {
         return jdbcTemplate.query("SELECT person_id,full_name,birth_year FROM Person", new BeanPropertyRowMapper<>(Person.class));
     }
 
+    public void create(Person person){
+        jdbcTemplate.update("INSERT INTO Person (full_name, birth_year) VALUES (?,?)",
+            person.getFull_name(),
+            person.getBirth_year());
+
+    }
+
 }
