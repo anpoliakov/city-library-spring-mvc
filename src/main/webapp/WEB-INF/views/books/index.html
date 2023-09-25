@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>List of books</title>
 </head>
 <body>
-    <p> Ho-ho-ho! Hi, Spring MVC, I'm books index</p>
+    <div th:each="book:${books}">
+        <p th:text="${book.getName()}">name of book</p>
+    </div>
+
+    <a href="/books/new"> Add new book </a>
 </body>
 </html>
