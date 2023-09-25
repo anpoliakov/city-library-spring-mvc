@@ -1,6 +1,10 @@
 package by.anpoliakov.config;
 
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -16,5 +20,17 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    //Фильтр для обработки PATCH/DELETE/etc методов протокола HTTP
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+        registerHiddenFieldFilter(servletContext);
+    }
+
+    private void registerHiddenFieldFilter(ServletContext aContext){
+        aContext.addFilter("hiddenHttpMethodFilter",
+                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
 }
