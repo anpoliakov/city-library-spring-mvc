@@ -4,10 +4,7 @@ import by.anpoliakov.dao.BookDAO;
 import by.anpoliakov.models.Book;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/books")
@@ -24,6 +21,12 @@ public class BooksController {
         return "books/index";
     }
 
+    @GetMapping("/{id}")
+    public String show(@PathVariable int id, Model model){
+        model.addAttribute("book", bookDAO.show(id));
+        return "books/show";
+    }
+
     @GetMapping("/new")
     public String newBook(@ModelAttribute Book book){
         return "books/new";
@@ -32,6 +35,24 @@ public class BooksController {
     @PostMapping()
     public String addBook(@ModelAttribute Book book){
         bookDAO.create(book);
+        return "redirect:/books";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable int id){
+        bookDAO.delete(id);
+        return "redirect:/books";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable int id, Model model){
+        model.addAttribute("book", bookDAO.show(id));
+        return "books/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@PathVariable int id, @ModelAttribute("book") Book book){
+        bookDAO.update(id, book);
         return "redirect:/books";
     }
 }
