@@ -6,9 +6,10 @@
 </head>
 <body>
     <div th:each="book:${books}">
-        <p th:text="${book.getName()}">name of book</p>
+        <a th:href="@{/books/{id}(id=${book.getBook_id()})}" th:text="${book.getName()}"> name of book </a>
     </div>
 
+    <br><hr><br>
     <a href="/books/new"> Add new book </a>
 </body>
 </html>
