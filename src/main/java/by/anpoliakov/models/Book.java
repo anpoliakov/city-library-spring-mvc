@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Book {
     private int book_id;
-    private String name;
+    private String title;
     private String author;
     private int year;
 
@@ -17,12 +17,12 @@ public class Book {
         this.book_id = book_id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

@@ -22,7 +22,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable int id, Model model){
+    public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("book", bookDAO.show(id));
         return "books/show";
     }
@@ -39,19 +39,19 @@ public class BooksController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable int id){
+    public String delete(@PathVariable("id") int id){
         bookDAO.delete(id);
         return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable int id, Model model){
+    public String edit(@PathVariable("id") int id, Model model){
         model.addAttribute("book", bookDAO.show(id));
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable int id, @ModelAttribute("book") Book book){
+    public String update(@PathVariable("id")int id, @ModelAttribute("book") Book book){
         bookDAO.update(id, book);
         return "redirect:/books";
     }

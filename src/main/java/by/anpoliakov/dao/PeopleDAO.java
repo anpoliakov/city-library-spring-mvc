@@ -1,5 +1,6 @@
 package by.anpoliakov.dao;
 
+import by.anpoliakov.models.Book;
 import by.anpoliakov.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -18,7 +19,7 @@ public class PeopleDAO {
     }
 
     public Person show(int id){
-        return jdbcTemplate.query("SELECT person_id, full_name, birth_year FROM Person WHERE person_id=?",
+        return jdbcTemplate.query("SELECT * FROM Person WHERE person_id=?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
     }
@@ -43,5 +44,10 @@ public class PeopleDAO {
                 person.getFull_name(),
                 person.getBirth_year(),
                 id);
+    }
+
+    public List<Book> getBooksById(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
     }
 }
