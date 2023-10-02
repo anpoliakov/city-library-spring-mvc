@@ -2,13 +2,13 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Information about Person</title>
+    <title>Информация о человеке</title>
 </head>
 <body>
-    <strong>Full name:</strong>
+    <strong>ФИО:</strong>
     <span th:text="${person.getFull_name()}"> Full name </span><br>
 
-    <strong>Birth year:</strong>
+    <strong>Дата рождения:</strong>
     <span th:text="${person.getBirth_year()}"> Birth year </span><br>
 
     <hr>
@@ -17,7 +17,7 @@
     </div>
 
     <div th:if="${books}">
-        <span><strong>Books:</strong></span><br>
+        <span><strong>Книги:</strong></span><br>
         <div th:each="book:${books}">
             <span th:text="${book.getTitle()}"></span>,<span th:text="${book.getAuthor()}"></span>,<span th:text="${book.getYear()}"></span>
         </div>
@@ -26,8 +26,8 @@
 
 
 
-    <form th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}"><button type="submit"> Edit </button></form>
-    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}"><input type="submit" value=" Delete "></form><br>
-    <form action="/people"><button type="submit"> Back </button></form>
+    <form th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}"><button type="submit"> Редактировать </button></form>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}"><input type="submit" value=" Удалить "></form><br>
+    <form action="/people"><button type="submit"> Назад </button></form>
 </body>
 </html>

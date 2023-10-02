@@ -2,21 +2,21 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Adding a new Book</title>
+    <title>Добавить новую книгу</title>
 </head>
 <body>
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
-    <label for="title"> Enter title </label><br>
+    <label for="title"> Введите наименование </label><br>
     <input type="text" id="title" th:field="*{title}"><br>
 
-    <label for="author"> Enter author </label><br>
+    <label for="author"> Введите автора </label><br>
     <input type="text" id="author" th:field="*{author}"><br>
 
-    <label for="birth_year"> Enter year of release </label><br>
+    <label for="birth_year"> Введите год издания </label><br>
     <input type="number" id="birth_year" th:field="*{year}"><br><br>
 
-    <input type="submit" value="Create">
+    <input type="submit" value="Создать">
 </form>
-<a href="/books"> < Back </a>
+<a href="/books"> Назад </a>
 </body>
 </html>

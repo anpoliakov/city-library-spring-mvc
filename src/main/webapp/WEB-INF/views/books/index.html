@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of books</title>
+    <title>Список Книг</title>
 </head>
 <body>
     <div th:each="book:${books}">
@@ -10,6 +10,7 @@
     </div>
 
     <br><hr><br>
-    <a href="/books/new"> Add new book </a>
+    <a href="/books/new"> Добавить новую книгу </a><br>
+    <a href="/greeting"> Назад к выбору раздела </a>
 </body>
 </html>

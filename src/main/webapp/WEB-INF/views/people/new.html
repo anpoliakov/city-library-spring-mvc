@@ -2,18 +2,18 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Creating a new Person</title>
+    <title>Создать нового читателя</title>
 </head>
 <body>
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
-        <label for="full_name"> Enter full name </label><br>
+        <label for="full_name"> Введите ФИО: </label><br>
         <input type="text" id="full_name" th:field="*{full_name}"><br>
 
-        <label for="birth_year"> Enter the year of birth </label><br>
+        <label for="birth_year"> Введите дату рождения: </label><br>
         <input type="number" id="birth_year" th:field="*{birth_year}"><br>
 
-        <input type="submit" value="Create">
+        <input type="submit" value="Создать">
     </form>
-    <a href="/people"> < Back </a>
+    <a href="/people"> Назад </a>
 </body>
 </html>
