@@ -2,11 +2,14 @@ package by.anpoliakov.controllers;
 
 import by.anpoliakov.dao.BookDAO;
 import by.anpoliakov.dao.PeopleDAO;
+import by.anpoliakov.models.Book;
 import by.anpoliakov.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -41,7 +44,11 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable int id, Model model){
         model.addAttribute("person", peopleDAO.show(id));
-        model.addAttribute("books", peopleDAO.getBooksById(id));
+        List<Book> list = peopleDAO.getBooksById(id);
+
+        if(!(list.isEmpty())){
+            model.addAttribute("books", peopleDAO.getBooksById(id));
+        }
         return "people/show";
     }
 
