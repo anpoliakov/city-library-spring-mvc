@@ -5,19 +5,41 @@
     <title>Information about Book</title>
 </head>
 <body>
-<h3>Title:</h3>
-<p th:text="${book.getTitle()}"> Title </p>
+    <strong>Title:</strong>
+    <span th:text="${book.getTitle()}"> Title </span><br>
 
-<h3>Author:</h3>
-<p th:text="${book.getAuthor()}"> Author </p>
+    <strong>Author:</strong>
+    <span th:text="${book.getAuthor()}"> Author </span><br>
 
-<h3>Year:</h3>
-<p th:text="${book.getYear()}"> Year </p>
+    <strong>Year:</strong>
+    <span th:text="${book.getYear()}"> Year </span><br>
 
-<a th:href="@{/books/{id}/edit(id=${book.getBook_id()})}"> Edit </a><br>
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBook_id()})}">
-    <input type="submit" value="Delete">
-</form><br>
-<a href="/books"> < Back </a>
+    <hr>
+    <!-- КНИГА ЗАНЯТА -->
+    <div th:if="${owner}">
+        <span th:text="${owner.getFull_name()}"></span><span> <--- has this a book </span>
+        <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getBook_id()})}">
+            <input type="submit" value="Release a book">
+        </form>
+    </div>
+
+    <!-- КНИГА СВОБОДНА -->
+    <div th:if="${people}">
+        <span> This is a free book, who assign it ? </span>
+
+        <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getBook_id()})}">
+            <label for="person"> Choice owner: </label>
+            <select th:object="${person}" th:field="*{person_id}" id="person">
+                <option th:each="person:${people}" th:text="${person.getFull_name()}" th:value="${person.getPerson_id()}"></option>
+            </select>
+            <input type="submit" value="Assign a book">
+        </form>
+
+    </div>
+    <hr>
+
+    <form th:action="@{/books/{id}/edit(id=${book.getBook_id()})}"><button type="submit"> Edit </button></form>
+    <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBook_id()})}"><input type="submit" value=" Delete "></form><br>
+    <form action="/books"><button type="submit"> Back </button></form>
 </body>
 </html>

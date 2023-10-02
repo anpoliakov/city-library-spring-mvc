@@ -1,12 +1,14 @@
 package by.anpoliakov.dao;
 
 import by.anpoliakov.models.Book;
+import by.anpoliakov.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookDAO {
@@ -44,5 +46,19 @@ public class BookDAO {
                 book.getAuthor(),
                 book.getYear(),
                 id);
+    }
+
+    public void release(int id) {
+        jdbcTemplate.update("UPDATE Book SET person_id=? WHERE book_id=?",null, id);
+    }
+
+    public Optional<Person> getBookOwner(int id) {
+        return jdbcTemplate.query("SELECT Person.* FROM Person INNER JOIN " +
+                "Book ON Book.person_id = Person.person_id WHERE Book.book_id = ?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
+
+    public void assign(int book_id, int person_id) {
+        jdbcTemplate.update("UPDATE Book SET person_id = ? WHERE book_id = ?", person_id, book_id);
     }
 }
