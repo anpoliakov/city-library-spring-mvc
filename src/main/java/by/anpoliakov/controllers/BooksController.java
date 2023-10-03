@@ -6,8 +6,10 @@ import by.anpoliakov.models.Book;
 import by.anpoliakov.models.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -39,25 +41,7 @@ public class BooksController {
             model.addAttribute("people", peopleDAO.index());
         }
 
-        //в представлении person, book и (owner или people)
         return "books/show";
-    }
-
-    @GetMapping("/new")
-    public String newBook(@ModelAttribute Book book){
-        return "books/new";
-    }
-
-    @PostMapping()
-    public String addBook(@ModelAttribute Book book){
-        bookDAO.create(book);
-        return "redirect:/books";
-    }
-
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
-        bookDAO.delete(id);
-        return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
@@ -66,8 +50,27 @@ public class BooksController {
         return "books/edit";
     }
 
+    @GetMapping("/new")
+    public String newBook(@ModelAttribute Book book){
+        return "books/new";
+    }
+
+    @PostMapping()
+    public String addBook(@ModelAttribute @Valid Book book, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "books/new";
+        }
+
+        bookDAO.create(book);
+        return "redirect:/books";
+    }
+
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id")int id, @ModelAttribute("book") Book book){
+    public String update(@PathVariable("id")int id, @ModelAttribute("book") @Valid Book book, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "books/edit";
+        }
+
         bookDAO.update(id, book);
         return "redirect:/books";
     }
@@ -82,5 +85,11 @@ public class BooksController {
     public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person assignPerson){
         bookDAO.assign(id, assignPerson.getPerson_id());
         return "redirect:/books/" + id;
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        bookDAO.delete(id);
+        return "redirect:/books";
     }
 }

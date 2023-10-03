@@ -8,12 +8,15 @@
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
     <label for="title"> Введите наименование </label><br>
     <input type="text" id="title" th:field="*{title}"><br>
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> Name error </div><br>
 
     <label for="author"> Введите автора </label><br>
     <input type="text" id="author" th:field="*{author}"><br>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"> name error </div><br>
 
-    <label for="birth_year"> Введите год издания </label><br>
-    <input type="number" id="birth_year" th:field="*{year}"><br><br>
+    <label for="year"> Введите год издания </label><br>
+    <input type="number" id="year" th:field="*{year}"><br><br>
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"> Name error </div><br>
 
     <input type="submit" value="Создать">
 </form>
