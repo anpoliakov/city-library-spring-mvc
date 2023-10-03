@@ -2,10 +2,19 @@ package by.anpoliakov.models;
 
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 @Component
 public class Person {
     private int person_id;
+
+    @NotEmpty(message = "ФИО не должно быть пустым!")
+    @Size(min = 2, max = 30, message = "ФИО должно состоять от 2 до 30 символов!")
     private String full_name;
+
+    @Min(value = 1900, message = "Не ври:) Нельзя выбрать год рождения раньше 1900!")
     private int birth_year;
 
     public int getPerson_id() {

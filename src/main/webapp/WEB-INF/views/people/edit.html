@@ -9,9 +9,11 @@
 
         <label for="full_name">ФИО:</label>
         <input type="text" id="full_name" th:field="*{full_name}"><br>
+        <div style="color:red" th:if="${#fields.hasErrors('full_name')}" th:errors="*{full_name}"> Name error </div><br>
 
         <label for="birth_year">Дата рождения:</label>
-        <input type="text" id="birth_year" th:field="*{birth_year}"><br>
+        <input type="number" id="birth_year" th:field="*{birth_year}"><br>
+        <div style="color:red" th:if="${#fields.hasErrors('birth_year')}" th:errors="*{birth_year}"> Name error </div><br>
 
         <input type="submit" value="Обновить">
     </form><br>
