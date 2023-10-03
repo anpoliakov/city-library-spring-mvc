@@ -19,6 +19,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import javax.sql.DataSource;
 import java.util.Objects;
 
+//аналог конфигурационному файлу Spring xml (теперь это конфигурационный класс)
 @Configuration
 @ComponentScan("by.anpoliakov")
 @EnableWebMvc

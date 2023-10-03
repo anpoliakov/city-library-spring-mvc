@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.EnumSet;
 
+//аналог файлу web.xml (он уже не нужен) - конфигурирование нашего приложения на стороне сервера (Apache Tomcat)
+//для AbstractAnnotationConfigDispatcherServletInitializer - нужна зависимость maven "Java Servlet API"
 public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -26,7 +28,7 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
         return new String[]{"/"};
     }
 
-    //Фильтр для обработки PATCH/DELETE/etc методов протокола HTTP
+    //Сюда добавляем вызов наших настроек (фильтр и руссификация)
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
