@@ -42,7 +42,7 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
 
-    //Подключение русского языка
+    //Фильтр для русского языка
     private void registerCharacterEncodingFilter(ServletContext aContext) {
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 
