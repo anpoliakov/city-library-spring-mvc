@@ -2,6 +2,7 @@ package by.anpoliakov.dao;
 
 import by.anpoliakov.models.Book;
 import by.anpoliakov.models.Person;
+import by.anpoliakov.rowMappers.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,11 +21,12 @@ public class BookDAO {
     }
 
     public List<Book> index(){
-        return jdbcTemplate.query("SELECT * FROM Book",
-                new BeanPropertyRowMapper<>(Book.class));
+        //Работа через самописный row mapper
+        return jdbcTemplate.query("SELECT * FROM Book", new BookMapper());
     }
 
     public Book show(int id) {
+        //работа через уже готовый row mapper (который есть в spring)
         return jdbcTemplate.query("SELECT * FROM Book WHERE book_id=?",
                 new Object[]{id}, new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
     }
