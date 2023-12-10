@@ -28,7 +28,7 @@ public class PeopleDAO {
     public Optional<Person> showByFullName(String full_name){
         return jdbcTemplate.query("SELECT * FROM Person WHERE full_name=?",
                 new Object[]{full_name},
-                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny(); //возвращает обёртку Optional
     }
 
     public List<Person> index(){

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-// Самописный валидатор - для того что бы ФИО читателя было индивидуально в БД
+// Самописный валидатор - для того что бы ФИО читателя было уникально в БД
 @Component
 public class PersonValidator implements Validator {
     private final PeopleDAO peopleDAO;
@@ -19,6 +19,7 @@ public class PersonValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
+        //указываем на каких классах должна происходить валидация
         return Person.class.equals(aClass);
     }
 

@@ -57,6 +57,8 @@ public class BooksController {
 
     @PostMapping()
     public String addBook(@ModelAttribute @Valid Book book, BindingResult bindingResult){
+        /* класс BindingResult содержит ошибки которые были найдены при внедрении значений в
+        * класс book */
         if(bindingResult.hasErrors()){
             return "books/new";
         }

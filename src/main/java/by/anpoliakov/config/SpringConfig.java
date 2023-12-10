@@ -19,14 +19,17 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import javax.sql.DataSource;
 import java.util.Objects;
 
-//аналог конфигурационному файлу Spring xml (теперь это конфигурационный класс)
+/**
+ * Аналог конфигурационному файлу applicationContext.xml
+ * (теперь это конфигурационный класс, а не файл)
+ */
 @Configuration
 @ComponentScan("by.anpoliakov")
 @EnableWebMvc
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:database.properties") //работа файлом properties
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
-    private final Environment environment;
+    private final Environment environment; //работа файлом properties
 
     @Autowired
     public SpringConfig(ApplicationContext applicationContext, Environment environment) {
@@ -62,6 +65,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     // 2 бина для работы JdbcTemplate + получение данных о БД из properties файла
+    // при работе через JdbcTemplate всегда запросы выполняются через PreparedStatement (защита от SQL иньекций)
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -79,3 +83,4 @@ public class SpringConfig implements WebMvcConfigurer {
         return new JdbcTemplate(dataSource());
     }
 }
+

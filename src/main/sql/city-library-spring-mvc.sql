@@ -9,5 +9,5 @@ CREATE TABLE Book (
     title VARCHAR(50) NOT NULL,
     author VARCHAR(30) NOT NULL,
     year INT NOT NULL,
-    person_id INT REFERENCES Person(person_id) NO DELETE SET NULL
+    person_id INT REFERENCES Person(person_id) ON DELETE SET NULL
 );
